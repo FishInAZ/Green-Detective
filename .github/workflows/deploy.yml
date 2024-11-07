@@ -18,7 +18,7 @@ jobs:
 
       - name: Install dependencies and build
         run: |
-          cd packages/your-frontend-folder  # 将此路径替换为实际的前端文件夹路径
+          cd packages/ui  # 将此路径替换为实际的前端文件夹路径
           npm install
           npm run build
 
@@ -26,4 +26,4 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./packages/your-frontend-folder/dist  # 确保路径与您的构建输出一致
+          publish_dir: ./packages/ui/dist
