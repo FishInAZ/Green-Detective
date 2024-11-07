@@ -9,21 +9,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3  # 使用较新的 checkout 版本
 
       - name: Setup Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3  # 使用较新的 setup-node 版本
         with:
-          node-version: '16'
+          node-version: '20'  # 使用较新的 Node.js 版本
 
-      - name: Install dependencies and build
+      - name: Install dependencies
+        run: npm install  # 安装所有工作区依赖
+
+      - name: Build frontend
         run: |
-          cd packages/ui  # 将此路径替换为实际的前端文件夹路径
-          npm install
-          npm run build
-
+          npm run build:ui  # 使用 package.json 中的 build:ui 命令来构建前端
+          
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./packages/ui/dist
+          publish_dir: ./packages/ui/dist  # 确保路径指向前端的构建输出文件夹
